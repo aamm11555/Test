@@ -1,0 +1,25 @@
+name: Run Python Script Every 30 Minutes
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # تشغيل السكريبت كل 30 دقيقة
+  workflow_dispatch:  # للسماح بتشغيله يدويًا
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # أحدث إصدار من بايثون
+
+      - name: Install dependencies
+        run: pip install requests urllib3  # إزالة json, re, time, datetime لأنها مدمجة
+
+      - name: Run Python script
+        run: python baz.py  # تشغيل السكريبت
